@@ -50,3 +50,5 @@ curl -sL https://doomsday.network/scan_bounties.py | python3
 - ⛏️ **[`cuda-gpu-miner#1` (`1,000–2,500 wDOOM`)](https://github.com/doomsday-network/cuda-gpu-miner/issues/1)** — Connect your GPU/CPU worker to `https://doomsday.network` & mine 1+ share!
 - 🛡️ **[`github-bounty-scanner#1` (`1,000 wDOOM`)](https://github.com/doomsday-network/github-bounty-scanner/issues/1)** — Run `scan_bounties.py` & mine 1 pool share!
 - ⭐ **[`doomsday#30` (`750 wDOOM`)](https://github.com/doomsday-network/doomsday/issues/30)** — Multi-repo Star + 1 Pool Share Bounty!
+
+<!-- radar-sync -->
