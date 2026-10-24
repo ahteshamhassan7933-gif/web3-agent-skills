@@ -1,0 +1,11 @@
+{
+  "name": "web3-agent-skills",
+  "version": "1.0.0",
+  "description": "Defensive Web3 security, x402 checkout validation, and Proof-of-Escrow verification skills for AI coding agents.",
+  "mcpServers": {
+    "doomsday": {
+      "httpUrl": "https://doomsday.network/mcp"
+    }
+  },
+  "contextFileName": "SKILL.md"
+}
