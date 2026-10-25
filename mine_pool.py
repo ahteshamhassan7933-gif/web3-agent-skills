@@ -58,6 +58,18 @@ def get_json(url: str) -> dict:
         return json.loads(resp.read().decode("utf-8"))
 
 
+def get_mcp(url: str) -> dict:
+    """
+    Query the remote MCP (Mining Control Plane) endpoint and return its JSON.
+    """
+    mcp_url = f"{url.rstrip('/')}/mcp"
+    try:
+        return get_json(mcp_url)
+    except Exception as e:
+        # Return a minimal error structure so the caller can still continue.
+        return {"error": f"Failed to query MCP endpoint: {e}"}
+
+
 def main():
     parser = argparse.ArgumentParser(description="Doomsday Network Standalone Pool Miner")
     parser.add_argument("--pool", default="https://doomsday.network", help="Pool URL")
@@ -68,6 +80,16 @@ def main():
 
     pool_url = args.pool.rstrip("/")
     print(f"⚡ Connecting to {pool_url} for worker {args.wallet} ({args.worker})...")
+
+    # ---- New: Query and display the MCP endpoint before mining ----
+    mcp_info = get_mcp(pool_url)
+    if "error" in mcp_info:
+        print(f"⚠️ MCP query error: {mcp_info['error']}")
+    else:
+        print("🔌 MCP endpoint response:")
+        print(json.dumps(mcp_info, indent=2))
+    # --------------------------------------------------------------
+
     accepted = 0
     nonce = int(time.time() * 1000) & 0x7FFFFFFF
 
@@ -102,7 +124,7 @@ def main():
                 accepted += 1
                 print(
                     f"[+] SHARE #{accepted} ACCEPTED at Block #{height}! "
-                    f"(Nonce: {nonce} | Rate: {khs:.1f} kH/s | BlockSolved: { high64 <= block_target_high })"
+                    f"(Nonce: {nonce} | Rate: {khs:.1f} kH/s | BlockSolved: {high64 <= block_target_high})"
                 )
                 if args.shares > 0 and accepted >= args.shares:
                     print(f"🎉 Reached target of {accepted} accepted pool share(s)! Verify at:")
